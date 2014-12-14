@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView 
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:text="详情"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
+        android:background="#000000"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp" 
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/gradient_box_other4">
+        
+        <TextView
+            android:id="@+id/tc_create"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.99"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="点击生成"
+            
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+         <View 
+             android:layout_width="0.2dp"
+             android:layout_height="match_parent"
+             android:background="#cccccc"/>
+        <TextView
+            android:id="@+id/create_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.99"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="null"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp" 
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/gradient_box_other4"
+        >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.98"
+            android:gravity="center"
+            android:text="使用人数"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+       <View 
+             android:layout_width="0.2dp"
+             android:layout_height="match_parent"
+             android:background="#cccccc"/>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2.04"
+            android:text="null"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp" 
+         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/gradient_box_other4">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.98"
+            android:gravity="center"
+            android:text="付费总额"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+       <View 
+             android:layout_width="0.2dp"
+             android:layout_height="match_parent"
+             android:background="#cccccc"/>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="null"
+            android:gravity="center"
+             android:layout_weight="2"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+10
+
+dir
+0
+https://caikaijie/svn/jxhobo/trunk/jxhobo/src/com/jxhobo/http
+https://caikaijie/svn/jxhobo
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9408fcc4-c5d4-2842-aa22-22bfe9002d73
+
+base
+dir
+
+
+
+add
+
+dataservice
+dir
+
+
+
+add
+
+util
+dir
+
+
+
+add
+

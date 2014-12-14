@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/welcome"
+    android:orientation="vertical" >
+    
+<TextView 
+    android:id="@+id/wel_register"
+    android:layout_width="90dp"
+    android:layout_height="wrap_content"
+    android:text="注册"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:gravity="center"
+    android:layout_alignParentBottom="true"
+    android:layout_marginLeft="50dp"
+    android:layout_marginBottom="40dp"
+    android:background="@drawable/gradient_box_blue"/>
+
+<TextView 
+    android:id="@+id/wel_login"
+    android:layout_width="90dp"
+    android:layout_height="wrap_content"
+    android:text="登录"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:gravity="center"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="50dp"
+    android:layout_marginBottom="40dp"
+    android:background="@drawable/gradient_box_blue"/>
+
+</RelativeLayout>

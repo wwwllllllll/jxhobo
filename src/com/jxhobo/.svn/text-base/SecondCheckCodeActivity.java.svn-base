@@ -1,0 +1,49 @@
+package com.example.jxhobo;
+
+import java.util.ArrayList;
+
+import com.example.jxhobo.broad.BroadcastHelper;
+import com.example.jxhobo.broad.Constants;
+import com.example.jxhobo.newdata.NewData;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.TextView;
+
+public class SecondCheckCodeActivity extends Activity {
+  private TextView tv_create,create_code;
+private NewData newData;
+ 
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);//È¥µô¶¥²¿µÄactionbar
+		setContentView(R.layout.newcode);
+		 newData=new NewData();
+			newData.listNewData=new ArrayList<Integer>();
+		tv_create=(TextView) findViewById(R.id.tc_create);
+		create_code=(TextView) findViewById(R.id.create_code);
+		tv_create.setClickable(true);
+		tv_create.setOnClickListener(new OnClickListener() {
+			
+			private int kcode;
+
+			@Override
+			public void onClick(View v) {
+				
+				kcode=(int)((9999999-1000000+1)*Math.random()+1000000);
+				create_code.setText(kcode+"");
+				
+				newData.listNewData.add(kcode);
+				Log.i("newData", newData.listNewData.size()+"");
+				//BroadcastHelper.sendBroadCast(getApplicationContext(), Constants.CHECK_CODE_ACTION, Constants.CHECK_CODE_ACTION_KEY, kcode);
+			   // BroadcastHelper.sendBroadCast(getApplicationContext(), Constants.REGISTER_ACTION, Constants.REGISTER_ACTION_KEY, kcode);
+			}
+		});
+	}
+}

@@ -1,0 +1,199 @@
+package com.example.jxhobo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.jxhobo.broad.Constants;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class SelectPage extends Activity {
+	private List<Integer> newCodeList=new ArrayList<Integer>();
+	private TextView bt_item1,bt_item2,sele_desc;
+	private int Ycode[]={162201, 209359, 234691, 874166, 787246, 409937, 657713, 
+			140153, 882689, 184253, 309478, 975540, 229130, 222833, 625747, 452632,
+			710846, 378243, 428224, 414994, 916203, 245134, 887660, 939106, 791311,
+			451097, 403214, 923463, 138497, 187042, 988319, 520398, 264940, 101577,
+			662391, 629511, 316188, 120355, 422412, 265832, 674310, 128323, 808767,
+			600706, 661097, 270570, 785652, 648879, 262946, 985694, 227970, 341371, 
+			186020, 984598, 743834, 480472, 657741, 427131, 564612, 320544, 913848, 
+			529180, 402944, 856318, 949015, 153640, 213191, 128971, 363419, 300071, 
+			388533, 579526, 307656, 109953, 894232, 888958, 414073, 247076, 967547, 
+			344896, 803817, 695953, 711364, 965920, 475845, 845016, 470825, 796181, 
+			516599, 985953, 510039, 355447, 717259, 265699, 599466, 492662, 549194, 
+			173381, 183594, 544713, 827677, 830980, 323270, 946351, 288922, 683479, 
+			497369, 372062, 716146, 351982, 804444, 916171, 476637, 821565, 126566, 
+			333602, 773711, 884553, 804801, 170412, 574930, 149465, 328569, 110623, 
+			451138, 156056, 959621, 753825, 549604, 507668, 195416, 416679, 428993, 
+			443542, 426417, 320647, 303859, 225794, 757142, 688157, 382053, 608410,
+			241770, 219917, 129653, 888960, 431672, 567159, 764973, 217611, 944465,
+			844388, 365675, 352602, 541991, 750530, 171190, 806498, 248116, 179377,
+			476408, 823357, 246280, 803859, 741994, 363368, 371489, 912869, 691705,
+			748551, 951724, 764278, 127733, 740809, 659727, 193222, 571358, 681911,
+			907702, 980891, 928104, 223905, 854670, 245773, 784097, 418038, 499048,
+			266656, 363475, 410385, 997490, 884708, 215476, 913254, 285100, 760553,
+			554201, 982799, 371831, 881488, 544105, 435372, 155234, 223871, 809878, 
+			277789, 820658, 276189, 950670, 709995, 996587, 419422, 155499, 882550, 
+			195030, 443065, 949205, 355894, 594669, 147536, 746454, 813531, 617980, 
+			746672, 755064, 827070, 912571, 237649, 349332, 557490, 671728, 749878,
+			529040, 804055, 919475, 319314, 990481, 679947, 241408, 960084, 962103, 
+			202046, 664160, 721467, 799275, 931137, 173534, 724990, 690185, 988445,
+			214215, 573773, 198041, 304528, 732382, 214233, 653489, 327377, 706659,
+			508886, 715602, 427995, 362526, 148217, 539754, 593778, 580672, 589439, 
+			126390, 492705, 990691, 360479, 575946, 724615, 988140, 508607, 442070, 
+			949822, 225160, 304900, 557820, 199827, 402712, 338057, 507654, 130084,
+			535916, 344106, 831807, 370568, 973086, 322127, 979026, 566341, 923740,
+			180377, 268677, 677313, 791213, 242049, 183856, 624138, 711448, 915396, 
+			893438, 125424, 471124, 899055, 992848, 370404, 315488, 350162, 260918, 
+			210746, 459091, 590183, 453267, 435349, 281087, 161406, 591483, 312810, 
+			820822, 375627, 761714, 747617, 989168, 615821, 906351, 198224, 176384,
+			661438, 278088, 847807, 268215, 108452, 726942, 201825, 578575, 646426,
+			907695, 110408, 769313, 836558, 927737, 678179, 155429, 707074, 903458, 
+			929255, 487552, 545290, 157073, 741004, 562568, 819303, 865178, 146555,
+			338006, 906497, 765358, 133081, 716108, 940909, 537796, 130594, 819484, 
+			317005, 605125, 194257, 701809, 503506, 235621, 932166, 524259, 327676, 
+			392413, 120090, 381181, 687796, 244462, 874839, 476978, 239601, 743897,
+			228741, 840250, 781005, 778630, 759109, 510958, 528732, 129244, 778665,
+			851685, 840299, 794753, 785529, 215065, 885295, 703129, 404702, 545982, 
+			611024, 489366, 226900, 109391, 479305, 406384, 265128, 412424, 173582, 
+			832222, 204584, 732911, 188514, 350715, 417259, 175505, 817781, 912282,
+			249039, 251353, 450127, 926445, 364174, 517528, 368492, 398333, 249627,
+			418454, 322594, 797749, 640144, 943082, 811420, 241191, 723803, 348829,
+			868831, 574817, 727340, 806094, 392849, 369437, 860744, 985635, 897182, 
+			577400, 521400, 845167, 192154, 555650, 319493, 171256, 321451, 329213, 
+			188429, 997903, 490941, 955074, 186715, 754191, 526344, 447610, 681024, 
+			389914, 287612, 843687, 524125, 390362, 349631, 618030, 205878, 219221, 
+			931217, 607615, 260679, 322038, 917374, 167622, 160568, 581759, 673384, 
+			560849, 909590, 442583, 393537, 777542, 982087, 508667, 462189, 293219, 
+			515269, 380225, 430307, 298341, 974696, 811089, 126771, 675574, 460249,
+			459059, 430467, 157923, 609700, 553172, 326531,};
+	private Integer zcode;
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+	
+	super.onCreate(savedInstanceState);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉顶部的actionbar
+	setContentView(R.layout.home_new);
+	bt_item1=(TextView) findViewById(R.id.bt_item1);
+	bt_item2=(TextView) findViewById(R.id.bt_item2);
+	sele_desc=(TextView) findViewById(R.id.sele_desc);
+	bt_item1.setClickable(true);
+	bt_item1.setFocusable(true);
+	bt_item2.setClickable(true);
+	bt_item2.setFocusable(true);
+	sele_desc.setClickable(true);
+	sele_desc.setFocusable(true);
+	//接收广播
+	registerBroadCast();
+	
+	Intent it=this.getIntent();
+	Bundle bundle=it.getExtras();
+	String code=bundle.getString("code");
+	
+	 zcode=Integer.valueOf(code);
+	 
+	Log.i("code--", code);
+	Log.i("zcode", code);
+	
+	/*for(int k=0;k<Ycode.length;k++){  
+		if(zcode==Ycode[k]){
+			Toast.makeText(getApplicationContext(), "ok", 0).show();
+			Log.i("Ycode", Ycode[k]+"");
+			break;
+		}else{
+			Log.i("Ycode---", Ycode[k]+"");
+		}
+	}*/
+	sele_desc.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "扑梭牌发明灵感来源于中国古代术数---奇门遁甲，198张，七个花色，目前可以玩18款游戏，九宫格正式上线，30天后，扑梭牌的经典游戏---扑梭上线", 1).show();
+				
+			}
+		});
+	bt_item2.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Intent logo4=new Intent(SelectPage.this,Select_Pusuo.class);
+			startActivity(logo4);
+			
+		}
+	});
+	bt_item1.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			for(int k=0;k<Ycode.length;k++){  
+				if(zcode==Ycode[k]){
+					Toast.makeText(getApplicationContext(), "ok", 0).show();
+					Log.i("Ycode", Ycode[k]+"");
+					Intent logo1=new Intent(SelectPage.this,HomeActivity.class);
+					startActivity(logo1);
+					break;
+				}else{
+					Log.i("Ycode---", Ycode[k]+"");
+					if(k==Ycode.length-1){
+						Toast.makeText(getApplicationContext(), "没有这一个", 0).show();
+						Intent logo3=new Intent(SelectPage.this,HomeActivity.class);
+						startActivity(logo3);
+						/*for(int j=0;j<newCodeList.size();j++){
+							if(zcode==newCodeList.get(j)){
+								Intent logo1=new Intent(Home.this,Logo1.class);
+						        startActivity(logo1);
+						        break;
+							}
+							if(j==newCodeList.size()){
+								Toast.makeText(getApplicationContext(), "验证码错误", 0).show();
+							}
+						}*/
+						
+					}
+				}
+				
+				
+		    }
+			
+		}
+	});
+	
+	}
+private void registerBroadCast() {
+	// TODO Auto-generated method stub
+	IntentFilter checkNewCodeFilter=new IntentFilter(Constants.CHECK_CODE_ACTION);
+	checkNewCodeFilter.addCategory(Intent.CATEGORY_DEFAULT);
+	registerReceiver(chenckNewCodeReceive, checkNewCodeFilter);
+}
+private BroadcastReceiver chenckNewCodeReceive =new BroadcastReceiver(){
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+		int newCode=intent.getIntExtra(Constants.CHECK_CODE_ACTION_KEY, 0);
+		Log.i("newCode", newCode+"");
+		newCodeList.add(newCode);
+		Log.i("newCodelistsize", newCodeList.size()+"");
+	}
+	
+};
+@Override
+protected void onDestroy() {
+	// TODO Auto-generated method stub
+	super.onDestroy();
+	unregisterReceiver(chenckNewCodeReceive);
+}
+     
+}

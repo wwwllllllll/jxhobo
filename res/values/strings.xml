@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">扑梭牌</string>
+    <string name="Ensure">"确定"</string>
+    <string name="glass"></string>
+    <string name="pay">充值</string>
+    <string name="invite_code">邀请码</string>
+    <string name="pusuo_brief">扑梭牌发明的灵感来源于中国古代术数——奇门遁甲，198张，七个花色:百花、盛开、大莲、小莲、神仙、神虎、神物，可玩18款游戏。现在九宫格正式上线。</string>
+    
+    <string-array name="game_list">
+        <item>九宫格</item>
+        <item>九宫格预测</item>
+        <item>扑梭</item>
+        <item>龙虎斗</item>
+    </string-array> 
+    
+    <string-array name="game_description">
+        <item>数字消除休闲类游戏，目标：从九宫格里的数字中选择和上面数字个位数一样的数字点击消除，获得最少的得分，最后得到的一张扑梭牌的数字就是你的得分。</item>
+        <item>您一定会把九宫格预测当成您的贴身小棉袄，因为它可以为您提供当天、本周、一个月里所发生的让您烦躁不安事情的处理线索。游戏最后得到的两张扑梭牌一张代表您的主观、一张代表事情的客观环境。
+  九宫格预测还可以情侣一起玩，最后的两张扑梭牌就分别代表您们的境况。
+  预测前，一定要想好您要预测的事情。
+		</item>
+        <item>扑梭是扑梭牌最经典的游戏，玩扑梭最大的收获就是：找到自己的一种感觉，做回了自我。 这就是我   这就是扑梭  这就是生活。此游戏1月15日上线。</item>
+        <item>您是深入虎穴还是孤身闯龙潭，精于计算，胆大心细是龙虎斗游戏的特点，玩家从3--100人同时参与。此游戏1月15日上线。</item>
+    </string-array>
+</resources>

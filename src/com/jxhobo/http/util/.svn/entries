@@ -1,0 +1,91 @@
+10
+
+dir
+0
+https://caikaijie/svn/jxhobo/trunk/jxhobo/src/com/jxhobo/http/util
+https://caikaijie/svn/jxhobo
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9408fcc4-c5d4-2842-aa22-22bfe9002d73
+
+Account.java
+file
+
+
+
+add
+
+CommonMsg.java
+file
+
+
+
+add
+
+Constant.java
+file
+
+
+
+add
+
+HttpUtil.java
+file
+
+
+
+add
+
+JsonUtil.java
+file
+
+
+
+add
+
+Log.java
+file
+
+
+
+add
+
+MyTask.java
+file
+
+
+
+add
+
+ResultCode.java
+file
+
+
+
+add
+
+WrapInputStream.java
+file
+
+
+
+add
+

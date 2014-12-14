@@ -1,0 +1,246 @@
+package com.example.jxhobo;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.jxhobo.bean.Person;
+import com.example.jxhobo.broad.Constants;
+import com.example.jxhobo.db.DBOpenHelper;
+import com.example.jxhobo.newdata.NewData;
+import com.example.jxhobo.service.PersonService;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class RegisterActivity extends Activity {
+	private List<Integer> newCodeList1=new ArrayList<Integer>();
+	private EditText zmobile;
+	private EditText zkey;
+	private EditText zcode;
+	private Button back;
+	private Button ok;
+	private SQLiteDatabase db;
+	private SharedPreferences ps;
+	private String mobile,key,code;
+	private List<Integer> zhucecode=new ArrayList<Integer>();
+	private int kcode;
+	private NewData newData;
+	private int Ycode[]={162201, 209359, 234691, 874166, 787246, 409937, 657713, 
+			140153, 882689, 184253, 309478, 975540, 229130, 222833, 625747, 452632,
+			710846, 378243, 428224, 414994, 916203, 245134, 887660, 939106, 791311,
+			451097, 403214, 923463, 138497, 187042, 988319, 520398, 264940, 101577,
+			662391, 629511, 316188, 120355, 422412, 265832, 674310, 128323, 808767,
+			600706, 661097, 270570, 785652, 648879, 262946, 985694, 227970, 341371, 
+			186020, 984598, 743834, 480472, 657741, 427131, 564612, 320544, 913848, 
+			529180, 402944, 856318, 949015, 153640, 213191, 128971, 363419, 300071, 
+			388533, 579526, 307656, 109953, 894232, 888958, 414073, 247076, 967547, 
+			344896, 803817, 695953, 711364, 965920, 475845, 845016, 470825, 796181, 
+			516599, 985953, 510039, 355447, 717259, 265699, 599466, 492662, 549194, 
+			173381, 183594, 544713, 827677, 830980, 323270, 946351, 288922, 683479, 
+			497369, 372062, 716146, 351982, 804444, 916171, 476637, 821565, 126566, 
+			333602, 773711, 884553, 804801, 170412, 574930, 149465, 328569, 110623, 
+			451138, 156056, 959621, 753825, 549604, 507668, 195416, 416679, 428993, 
+			443542, 426417, 320647, 303859, 225794, 757142, 688157, 382053, 608410,
+			241770, 219917, 129653, 888960, 431672, 567159, 764973, 217611, 944465,
+			844388, 365675, 352602, 541991, 750530, 171190, 806498, 248116, 179377,
+			476408, 823357, 246280, 803859, 741994, 363368, 371489, 912869, 691705,
+			748551, 951724, 764278, 127733, 740809, 659727, 193222, 571358, 681911,
+			907702, 980891, 928104, 223905, 854670, 245773, 784097, 418038, 499048,
+			266656, 363475, 410385, 997490, 884708, 215476, 913254, 285100, 760553,
+			554201, 982799, 371831, 881488, 544105, 435372, 155234, 223871, 809878, 
+			277789, 820658, 276189, 950670, 709995, 996587, 419422, 155499, 882550, 
+			195030, 443065, 949205, 355894, 594669, 147536, 746454, 813531, 617980, 
+			746672, 755064, 827070, 912571, 237649, 349332, 557490, 671728, 749878,
+			529040, 804055, 919475, 319314, 990481, 679947, 241408, 960084, 962103, 
+			202046, 664160, 721467, 799275, 931137, 173534, 724990, 690185, 988445,
+			214215, 573773, 198041, 304528, 732382, 214233, 653489, 327377, 706659,
+			508886, 715602, 427995, 362526, 148217, 539754, 593778, 580672, 589439, 
+			126390, 492705, 990691, 360479, 575946, 724615, 988140, 508607, 442070, 
+			949822, 225160, 304900, 557820, 199827, 402712, 338057, 507654, 130084,
+			535916, 344106, 831807, 370568, 973086, 322127, 979026, 566341, 923740,
+			180377, 268677, 677313, 791213, 242049, 183856, 624138, 711448, 915396, 
+			893438, 125424, 471124, 899055, 992848, 370404, 315488, 350162, 260918, 
+			210746, 459091, 590183, 453267, 435349, 281087, 161406, 591483, 312810, 
+			820822, 375627, 761714, 747617, 989168, 615821, 906351, 198224, 176384,
+			661438, 278088, 847807, 268215, 108452, 726942, 201825, 578575, 646426,
+			907695, 110408, 769313, 836558, 927737, 678179, 155429, 707074, 903458, 
+			929255, 487552, 545290, 157073, 741004, 562568, 819303, 865178, 146555,
+			338006, 906497, 765358, 133081, 716108, 940909, 537796, 130594, 819484, 
+			317005, 605125, 194257, 701809, 503506, 235621, 932166, 524259, 327676, 
+			392413, 120090, 381181, 687796, 244462, 874839, 476978, 239601, 743897,
+			228741, 840250, 781005, 778630, 759109, 510958, 528732, 129244, 778665,
+			851685, 840299, 794753, 785529, 215065, 885295, 703129, 404702, 545982, 
+			611024, 489366, 226900, 109391, 479305, 406384, 265128, 412424, 173582, 
+			832222, 204584, 732911, 188514, 350715, 417259, 175505, 817781, 912282,
+			249039, 251353, 450127, 926445, 364174, 517528, 368492, 398333, 249627,
+			418454, 322594, 797749, 640144, 943082, 811420, 241191, 723803, 348829,
+			868831, 574817, 727340, 806094, 392849, 369437, 860744, 985635, 897182, 
+			577400, 521400, 845167, 192154, 555650, 319493, 171256, 321451, 329213, 
+			188429, 997903, 490941, 955074, 186715, 754191, 526344, 447610, 681024, 
+			389914, 287612, 843687, 524125, 390362, 349631, 618030, 205878, 219221, 
+			931217, 607615, 260679, 322038, 917374, 167622, 160568, 581759, 673384, 
+			560849, 909590, 442583, 393537, 777542, 982087, 508667, 462189, 293219, 
+			515269, 380225, 430307, 298341, 974696, 811089, 126771, 675574, 460249,
+			459059, 430467, 157923, 609700, 553172, 326531,};
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    	
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉顶部的actionbar
+    	super.onCreate(savedInstanceState);
+    	setContentView(R.layout.activity_main_new);
+    	newData=new NewData();
+    	
+    	/*for(int i=0;i<1000;i++){
+    		kcode=(int)((999999-100000+1)*Math.random()+100000);
+    		zhucecode.add(kcode);
+    	}
+    	Log.i("zhucecode", zhucecode.toString());*/
+    	zmobile=(EditText) findViewById(R.id.zmobile);
+    	zkey=(EditText) findViewById(R.id.zkey);
+    	zcode=(EditText) findViewById(R.id.zcode);
+    	back=(Button) findViewById(R.id.back);
+    	ok=(Button) findViewById(R.id.ok);
+    	ps=getSharedPreferences("config", MODE_PRIVATE);
+    	//接收广播
+    	//registerBroadCast1();
+    	
+    	
+    	DBOpenHelper dbOpenHelper=new DBOpenHelper(RegisterActivity.this);
+		
+		 
+		 boolean state=ps.getBoolean("state", false);
+			if(state==false){
+				db=dbOpenHelper.getWritableDatabase();
+				ps.edit().putBoolean("state", true).commit();
+			}
+			
+    	back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				 Intent it=new Intent(RegisterActivity.this,LoginActivity.class);
+			       startActivity(it);
+			       finish();
+			}
+		});
+    	
+    	ok.setOnClickListener(new OnClickListener() {
+		     
+			
+			@Override
+			public void onClick(View v) {
+				mobile=zmobile.getText().toString();
+			    key=zkey.getText().toString();
+			    code=zcode.getText().toString();
+				if(mobile.isEmpty() || key.isEmpty() || code.isEmpty()){
+					Log.i("mobile--", mobile);
+					Log.i("key", key);
+					Log.i("code", code);
+					Toast.makeText(getApplicationContext(), "不能为空", 0).show();
+				}else{
+					for(int i=0;i<Ycode.length;i++){
+						if(Integer.valueOf(code)==Ycode[i]){
+							Toast.makeText(getApplicationContext(), "注册码匹配成功", 1).show();
+							
+						    break;
+						}
+						if(i==Ycode.length-1){
+							/*for(int h=0;h<newData.listNewData.size();h++){
+								if(Integer.valueOf(code)==newData.listNewData.get(h)){
+									Toast.makeText(getApplicationContext(), "纵欲成功那个了", 1).show();
+								   break;
+								}
+								if(h==newData.listNewData.size()-1){
+									Toast.makeText(getApplicationContext(), "注册码匹配失败", 1).show();
+								}
+							}*/
+							
+							//Toast.makeText(getApplicationContext(), "注册码匹配失败", 1).show();
+						}
+						    
+					}
+					saveData();
+					Toast.makeText(getApplicationContext(), "注册码保存成功", 0).show();
+					Intent it=new Intent(RegisterActivity.this,SelectPage.class);
+					Bundle bundle=new Bundle();
+					bundle.putString("code", code);
+					it.putExtras(bundle);
+			        startActivity(it);
+			        finish();
+				}
+				
+			}
+			private void saveData() {
+				// TODO Auto-generated method stub
+				/*Person person=new Person();
+		    	person.set_id(mobile);
+		    	person.setKey(key);*/
+		    	
+		    	savePersonData();
+			}
+		});
+    }
+    
+    
+    /*public void save(Person person){
+    	savePersonData();
+    	//db.execSQL("insert into person (_id,key,code) values (?,?,?)", new Object[]{person.get_id(),person.getKey(),person.getZhucecode()});
+    }*/
+
+
+	private void savePersonData() {
+		PersonService p=new PersonService(RegisterActivity.this,db);
+		
+		Person person=new Person();
+		person.set_id(mobile);
+		person.setKey(key);
+		person.setZhucecode(Integer.valueOf(code));
+		p.save(person);
+		
+	}
+    
+	public void registerBroadCast1() {
+		Log.i("registerBroadCast1", "调用了1");
+		IntentFilter registerCodeFilter=new IntentFilter(Constants.REGISTER_ACTION);
+		registerCodeFilter.addCategory(Intent.CATEGORY_DEFAULT);
+		registerReceiver(registerCodeReceive, registerCodeFilter);
+	}
+	
+  public BroadcastReceiver registerCodeReceive=new BroadcastReceiver(){
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+
+		Log.i("BroadcastReceiver", "调用了2");
+		int rNewCode=intent.getIntExtra(Constants.REGISTER_ACTION_KEY, 1);
+		Log.i("newCode1", rNewCode+"");
+		newCodeList1.add(rNewCode);
+		Log.i("newCodelistsize1", newCodeList1.size()+"");
+	
+	}
+	  
+  };
+@Override
+protected void onDestroy() {
+	// TODO Auto-generated method stub
+	super.onDestroy();
+	unregisterReceiver(registerCodeReceive);
+}
+  
+}

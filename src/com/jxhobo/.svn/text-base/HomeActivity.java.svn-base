@@ -1,0 +1,232 @@
+package com.example.jxhobo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.jxhobo.pagerview.Pager_Muse;
+import com.example.jxhobo.pagerview.Pager_Pre;
+import com.example.jxhobo.pagerview.ViewPagerAdapter;
+
+import android.app.Activity;
+import android.app.LocalActivityManager;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class HomeActivity extends Activity {
+	private Button tv_yule;
+	private Button tv_yuce;
+	private LinearLayout sublayout1,sublayout2;
+	private ImageView titlebar2;
+	private PopupWindow popWin;
+	private ListView listView;
+	private MyListAdapter Dadapter;
+	private ViewPager pager;
+	private LocalActivityManager lam;
+	private List<String> datalist=new ArrayList<String>();
+	private View h_line_l,h_line_r;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    	// TODO Auto-generated method stub
+    	super.onCreate(savedInstanceState);
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);//鍘绘帀椤堕儴鐨刟ctionbar
+    	setContentView(R.layout.subhome1);
+    	pager=(ViewPager) findViewById(R.id.pager);
+    	titlebar2=(ImageView) findViewById(R.id.titlebar2);
+    	tv_yuce=(Button) findViewById(R.id.tv_yuce);
+    	tv_yule=(Button) findViewById(R.id.tv_yule);
+    	h_line_l=(View)findViewById(R.id.h_line_l);
+    	h_line_r=(View)findViewById(R.id.h_line_r);
+    	//sublayout1=(LinearLayout) findViewById(R.id.sublayout1);
+    	//sublayout2=(LinearLayout) findViewById(R.id.sublayout2);
+    	tv_yule.setClickable(true);
+    	tv_yule.setFocusable(true);
+    	tv_yuce.setClickable(true);
+    	tv_yuce.setFocusable(true);
+    	
+    	pager.setOnPageChangeListener(onChangeListener);
+    	//灏哸ctivity杞垚view
+    	lam=new LocalActivityManager(this, true);
+    	lam.dispatchCreate(savedInstanceState);//浣跨敤LocalActivityManager锛屽繀椤昏皟鐢紝鍚﹀垯鍑洪敊
+    	initActivities();//瀹炵幇灏哸ctivity杞垚view
+    	
+    	
+    	tv_yule.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				pager.setCurrentItem(0);
+				h_line_l.setBackgroundColor(Color.RED);
+				h_line_l.setMinimumWidth(tv_yule.getWidth());
+				h_line_r.setBackgroundColor(Color.WHITE);
+			}
+		});
+    	tv_yuce.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "预测功能不可用，请先充值", 1).show();
+				pager.setCurrentItem(1);
+				h_line_l.setBackgroundColor(Color.WHITE);
+				h_line_r.setBackgroundColor(Color.RED);
+				h_line_r.setMinimumWidth(tv_yuce.getWidth());
+			}
+		});
+    	datalist.add("充值");
+    	datalist.add("邀请码");
+    	datalist.add("退出");
+    	
+    	titlebar2.setOnClickListener(new OnClickListener() {
+			
+
+			@Override
+			public void onClick(View v) {
+				listView = new ListView(HomeActivity.this);
+				//listView.setBackgroundResource(R.drawable.gradient_box_other3); //锟斤拷锟斤拷listView 锟斤拷锟斤拷
+				listView.setDivider(null);	
+				listView.setVerticalScrollBarEnabled(false); // 锟截憋拷
+				Dadapter=new MyListAdapter();
+				
+				listView.setAdapter(Dadapter);
+				popWin=new PopupWindow(HomeActivity.this);
+				popWin.setWidth(titlebar2.getWidth()*3);
+				popWin.setHeight(titlebar2.getWidth()*3);
+				popWin.setContentView(listView);
+				popWin.setOutsideTouchable(true);
+				popWin.showAsDropDown(titlebar2,0,0);
+			}
+		});
+    }
+    
+    public class MyListAdapter extends BaseAdapter{
+
+		@Override
+		public int getCount() {
+			Log.i("datalist", datalist.size()+"");
+			return datalist.size();
+			
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			ViewHolder holder;
+			if(convertView==null){
+				convertView=View.inflate(getApplicationContext(), R.layout.popwin, null);
+				holder=new ViewHolder();
+				holder.list_item=(TextView) convertView.findViewById(R.id.list_item);
+			    convertView.setTag(holder);
+			}else{
+				holder=(ViewHolder) convertView.getTag();
+			}
+			
+			holder.list_item.setText(datalist.get(position));
+			convertView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(position==0){
+						Toast.makeText(getApplicationContext(), datalist.get(position), 1).show();
+						popWin.dismiss();
+						Intent alipay=new Intent(HomeActivity.this,Alipay.class);
+						startActivity(alipay);
+					}
+					if(position==1){
+						popWin.dismiss();
+						Intent newcode=new Intent(HomeActivity.this,SecondCheckCodeActivity.class);
+						startActivity(newcode);
+					}
+					if(position==2){
+						Toast.makeText(getApplicationContext(), datalist.get(position), 1).show();
+					    popWin.dismiss();
+					}
+				}
+			});
+			return convertView;
+		}
+    	
+    }
+    
+    public class ViewHolder{
+    	TextView list_item;
+    }
+    
+    
+    
+    
+    private void initActivities() {
+		List<View> viewList=new ArrayList<View>();
+		
+		Intent intent1=new Intent(this,Pager_Muse.class);
+		View mainView=lam.startActivity("Pager_Muse", intent1).getDecorView();
+		viewList.add(mainView);
+		
+		Intent intent2=new Intent(this,Pager_Pre.class);
+		View iaskView=lam.startActivity("Pager_Pre", intent2).getDecorView();
+	    viewList.add(iaskView);
+	    
+	    //灏唙iewList鏂规硶鍝iewPager鐨勯�閰嶅櫒涓樉绀�
+	    ViewPagerAdapter adapter=new ViewPagerAdapter(viewList);
+	    pager.setAdapter(adapter);
+	}
+    
+private ViewPager.OnPageChangeListener onChangeListener=new ViewPager.OnPageChangeListener() {
+		
+		@Override
+		public void onPageSelected(int position) {
+			//璁﹙iewpager绗竴椤垫粦鍔ㄥ埌鏃跺�鐢诲嚭slidingmenu锛岀浜岄〉鐨勬椂鍊欐粦鍔ㄥ埌绗竴椤�鑰屼笉鑳界敾鍑簊lidingmenu
+			switch (position) {
+			case 0:
+				h_line_l.setBackgroundColor(Color.RED);
+				h_line_r.setBackgroundColor(Color.WHITE);
+				break;
+			case 1:
+				h_line_l.setBackgroundColor(Color.WHITE);
+				h_line_r.setBackgroundColor(Color.RED);
+				break;
+			default:
+				
+				break;
+			}
+		}
+		
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+}
+

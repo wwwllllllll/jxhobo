@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:text="邀请码"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/invite_code"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
+            />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:text="该邀请码注册会员"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/member_count"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
+            />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:text="会员充值总额"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/member_pay"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
+            />
+    </TableRow>
+</TableLayout>

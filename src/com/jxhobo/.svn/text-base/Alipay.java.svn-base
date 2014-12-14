@@ -1,0 +1,240 @@
+package com.example.jxhobo;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
+
+
+import com.alipay.sdk.app.PayTask;
+
+import com.example.jxhobo.alipaydemo.PayDemoActivity;
+import com.example.jxhobo.pay.Result;
+import com.example.jxhobo.pay.SignUtils;
+
+
+
+
+
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class Alipay extends Activity {
+	   private TextView pay_6,pay_120,pay_240,pay_480,pay_960,pay_1000;
+
+		// 合作商户ID。用签约支付宝账号登录ms.alipay.com后，在账户信息页面获取。
+		public static final String PARTNER = "2088211803136807";
+		// 商户收款的支付宝账号
+		public static final String SELLER = "1075575379@qq.com";
+		// 商户（RSA）私钥
+		public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAK7Q3/dIl8KSHXdgwqqsefjz3WUXOkStja09Zskbkd3Lu7ymJ0alv87hWFiMDbPf071Z8AouCzhUk5pfmwfpby0ZDjLmdGSH42Lm0RtAE2j9FKhwpOfueLzweTuMhEQfi62r0vzZ/kh1fLIIP3WaWgEDTjY3EbyG3aAFk86btSHfAgMBAAECgYEAkwjX95M1Ic/nvMrDsO3UwVHLuwUoWy9mZHmqhCgOLfD3/Jn7mu46P/VFa2SQ+eOeojqNLOLBSSXJ6CPVr3flqzLNGKGTTeV4GgNljcQ16SuqZJP1aFEJLev6+y/k19f3pBjprGI63k7dS+7FMcLUUCbTlnk899J0zP7Eey1S/zECQQDZ2AMVy2eleQLn69MZKYE/OypHJfk82RMsBj9ccyeXE51uQPWZegvkAE+YFIkQkyjPtpciShVxpBBiMOzjH2kLAkEAzW+EmObQgB2PxMnzIFRkLnJX0U082rpCzJKIXZSN1u5mAgEhldgUzjdBgpmfJ9tuvBja+pIEGboUQuGdNcY2/QI/Orb+HeG1DeSP4/Kr8xw8uc44lvSlOMFJaZRFf6WKBi5DQHRBvhwnGEz9JwBh8RW46kNMePF+1iJiSBTnxE+zAkAPXBsp43gLXCp3qDHJZQXogxwVxhSatfpwmTQg6w5/12tBExyTu4gysubvANVpgXqSDbmxqmEsG0GQjpXWg29xAkBRlvpawXLxy+ZHmqnsw1BfJwr39YdBtR2BYRQHGI2oiKacXxgtbS9x5T0kJKLbaBY7UVFpWkh/ftQxc1PDrv/Y";
+
+
+		// 支付宝（RSA）公钥 用签约支付宝账号登录ms.alipay.com后，在密钥管理页面获取。
+		public static final String RSA_ALIPAY_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
+		// 支付宝安全支付服务apk的名称，必须与assets目录下的apk名称一致
+		
+	// 支付宝安全支付服务apk的名称，必须与assets目录下的apk名称一致
+	public static final String ALIPAY_PLUGIN_NAME = "jxhobo.apk";
+	
+	private static final int SDK_PAY_FLAG = 1;
+	private String info="";
+	
+	private Handler mHandler=new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			Result result=new Result((String)msg.obj);
+			Toast.makeText(getApplicationContext(), result.toString(), 1).show();
+		}
+		
+	};
+   @Override
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉顶部的actionbar
+	setContentView(R.layout.alipay_layout_new);
+	pay_6=(TextView) findViewById(R.id.pay_6);
+	pay_120=(TextView) findViewById(R.id.pay_120);
+	pay_240=(TextView) findViewById(R.id.pay_240);
+	pay_480=(TextView) findViewById(R.id.pay_480);
+	pay_960=(TextView) findViewById(R.id.pay_960);
+	pay_1000=(TextView) findViewById(R.id.pay_1000);
+	pay_6.setClickable(true);
+	pay_6.setFocusable(true);
+	
+	pay_120.setClickable(true);
+	pay_120.setFocusable(true);
+	
+	pay_240.setClickable(true);
+	pay_240.setFocusable(true);
+	
+	pay_480.setClickable(true);
+	pay_480.setFocusable(true);
+	
+	pay_960.setClickable(true);
+	pay_960.setFocusable(true);
+	
+	pay_1000.setClickable(true);
+	pay_1000.setFocusable(true);
+	pay_6.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			pay_6.setBackgroundResource(R.drawable.gradient_box_grey);
+			Intent payToDemo=new Intent(Alipay.this,PayDemoActivity.class);
+			Bundle bundle=new Bundle();
+			bundle.putInt("price", 6);
+			payToDemo.putExtras(bundle);
+			startActivity(payToDemo);
+		}
+	});
+	pay_120.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				pay_120.setBackgroundResource(R.drawable.gradient_box_grey);
+				Intent payToDemo=new Intent(Alipay.this,PayDemoActivity.class);
+				Bundle bundle=new Bundle();
+				bundle.putInt("price", 120);
+				payToDemo.putExtras(bundle);
+				startActivity(payToDemo);
+				
+			}
+		});
+	pay_240.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			pay_240.setBackgroundResource(R.drawable.gradient_box_grey);
+			Intent payToDemo=new Intent(Alipay.this,PayDemoActivity.class);
+			Bundle bundle=new Bundle();
+			bundle.putInt("price", 240);
+			payToDemo.putExtras(bundle);
+			startActivity(payToDemo);
+			
+		}
+	});
+	pay_480.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				pay_480.setBackgroundResource(R.drawable.gradient_box_grey);
+				Intent payToDemo=new Intent(Alipay.this,PayDemoActivity.class);
+				Bundle bundle=new Bundle();
+				bundle.putInt("price", 480);
+				payToDemo.putExtras(bundle);
+				startActivity(payToDemo);
+				
+			}
+		});
+	pay_960.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			pay_960.setBackgroundResource(R.drawable.gradient_box_grey);
+			Intent payToDemo=new Intent(Alipay.this,PayDemoActivity.class);
+			Bundle bundle=new Bundle();
+			bundle.putInt("price", 960);
+			payToDemo.putExtras(bundle);
+			startActivity(payToDemo);
+			
+		}
+	});
+	pay_1000.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			pay_1000.setBackgroundResource(R.drawable.gradient_box_grey);
+			Intent payToDemo=new Intent(Alipay.this,PayDemoActivity.class);
+			Bundle bundle=new Bundle();
+			bundle.putInt("price", 1000);
+			payToDemo.putExtras(bundle);
+			startActivity(payToDemo);
+			
+		}
+	});
+}
+   
+   
+   public String getOrderInfo(String subject, String body, String price) {
+		// 
+		String orderInfo = "partner=" + "\"" + PARTNER + "\"";
+
+		// 
+		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
+
+		// 
+		orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+
+		/*
+		orderInfo += "&subject=" + "\"" + subject + "\"";
+
+		
+		orderInfo += "&body=" + "\"" + body + "\"";
+*/
+		//
+		orderInfo += "&total_fee=" + "\"" + price + "\"";
+
+		/*
+		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
+				+ "\"";
+*/
+		// �ӿ���ƣ� �̶�ֵ
+		orderInfo += "&service=\"mobile.securitypay.pay\"";
+
+		// ֧�����ͣ� �̶�ֵ
+		orderInfo += "&payment_type=\"1\"";
+
+		// ������룬 �̶�ֵ
+		orderInfo += "&_input_charset=\"utf-8\"";
+
+		
+		orderInfo += "&it_b_pay=\"30m\"";
+
+		
+		orderInfo += "&return_url=\"m.alipay.com\"";
+
+		
+
+		return orderInfo;
+	}
+   public String getOutTradeNo() {
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+				Locale.getDefault());
+		Date date = new Date();
+		String key = format.format(date);
+
+		Random r = new Random();
+		key = key + r.nextInt();
+		key = key.substring(0, 15);
+		return key;
+	}
+   public String sign(String content) {
+		return SignUtils.sign(content, RSA_PRIVATE);
+	}
+   
+   public String getSignType() {
+		return "sign_type=\"RSA\"";
+	}
+
+}

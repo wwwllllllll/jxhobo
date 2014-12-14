@@ -1,0 +1,115 @@
+package com.example.jxhobo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.jxhobo.pagerview.Pager_Muse;
+import com.example.jxhobo.pagerview.Pager_Pre;
+import com.example.jxhobo.pagerview.ViewPagerAdapter;
+
+import android.app.Activity;
+import android.app.LocalActivityManager;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class Select_Pusuo extends Activity {
+	private ViewPager pager_pusuo;
+	private Button pusuo_tv_yule;
+	private Button pusuo_tv_yuce;
+	private LocalActivityManager lam;
+	private View h_line_l,h_line_r;
+   @Override
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉顶部的actionbar
+	setContentView(R.layout.subview4_new);
+	h_line_l=(View)findViewById(R.id.h_line_l);
+	h_line_r=(View)findViewById(R.id.h_line_r);
+	pager_pusuo=(ViewPager) findViewById(R.id.pager_pusuo);
+    pusuo_tv_yule=(Button) findViewById(R.id.pusuo_tv_yule);
+    pusuo_tv_yuce=(Button) findViewById(R.id.pusuo_tv_yuce);
+    pager_pusuo.setOnPageChangeListener(onChangeListener);
+	//灏哸ctivity杞垚view
+	lam=new LocalActivityManager(this, true);
+	lam.dispatchCreate(savedInstanceState);//浣跨敤LocalActivityManager锛屽繀椤昏皟鐢紝鍚﹀垯鍑洪敊
+    initActivities();
+    pusuo_tv_yule.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			pager_pusuo.setCurrentItem(0);
+			h_line_l.setBackgroundColor(Color.RED);
+			h_line_l.setMinimumWidth(pusuo_tv_yule.getWidth());
+			h_line_r.setBackgroundColor(Color.WHITE);
+		}
+	});
+    pusuo_tv_yuce.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Toast.makeText(getApplicationContext(), "预测功能不可用，请先充值", 1).show();
+			pager_pusuo.setCurrentItem(1);
+			h_line_l.setBackgroundColor(Color.WHITE);
+			h_line_r.setBackgroundColor(Color.RED);
+			h_line_r.setMinimumWidth(pusuo_tv_yuce.getWidth());
+		}
+	});
+   }
+   private void initActivities() {
+		List<View> viewList=new ArrayList<View>();
+		
+		Intent intent1=new Intent(this,Pager_Muse.class);
+		View mainView=lam.startActivity("Pager_Muse", intent1).getDecorView();
+		viewList.add(mainView);
+		
+		Intent intent2=new Intent(this,Pager_Pre.class);
+		View iaskView=lam.startActivity("Pager_Pre", intent2).getDecorView();
+	    viewList.add(iaskView);
+	    
+	    //灏唙iewList鏂规硶鍝iewPager鐨勯�閰嶅櫒涓樉绀�
+	    ViewPagerAdapter adapter=new ViewPagerAdapter(viewList);
+	    pager_pusuo.setAdapter(adapter);
+	}
+   private ViewPager.OnPageChangeListener onChangeListener=new ViewPager.OnPageChangeListener() {
+		
+		@Override
+		public void onPageSelected(int position) {
+			//璁﹙iewpager绗竴椤垫粦鍔ㄥ埌鏃跺�鐢诲嚭slidingmenu锛岀浜岄〉鐨勬椂鍊欐粦鍔ㄥ埌绗竴椤�鑰屼笉鑳界敾鍑簊lidingmenu
+			switch (position) {
+			case 0:
+				h_line_l.setBackgroundColor(Color.RED);
+				h_line_r.setBackgroundColor(Color.WHITE);
+				break;
+			case 1:
+				h_line_l.setBackgroundColor(Color.WHITE);
+				h_line_r.setBackgroundColor(Color.RED);
+				break;
+			default:
+				
+				break;
+			}
+		}
+		
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+}

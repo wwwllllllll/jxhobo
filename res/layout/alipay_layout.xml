@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3399ff"
+        android:gravity="center_horizontal"
+        android:text="支付"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        
+        android:src="@drawable/title_logo" />
+
+    <Button
+        android:id="@+id/pay_6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"
+        android:background="@drawable/gradient_box_other4"
+        android:text="充值6元" />
+
+    <Button
+        android:id="@+id/pay_120"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_box_other4"
+        android:text="充值120元" />
+
+    <Button
+        android:id="@+id/pay_240"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_box_other4"
+        android:text="充值240元" />
+
+    <Button
+        android:id="@+id/pay_1000"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_box_other4"
+        android:text="充值1000元" />
+
+</LinearLayout>

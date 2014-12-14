@@ -1,0 +1,137 @@
+package com.example.jxhobo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.jxhobo.HomeActivity.MyListAdapter;
+import com.example.jxhobo.HomeActivity.ViewHolder;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class EndCheckCodeActivity extends Activity {
+	private ImageView desc_img;
+	private ImageView title_img;
+	private ListView listView;
+	private MyListAdapter Dadapter;
+	private PopupWindow popWin;
+	private List<String> datalist=new ArrayList<String>();
+   @Override
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉顶部的actionbar
+	setContentView(R.layout.subhome3);
+	desc_img=(ImageView) findViewById(R.id.desc_img);
+	title_img=(ImageView) findViewById(R.id.title_img);
+	
+	datalist.add("充值");
+	
+	datalist.add("退出");
+	desc_img.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Toast.makeText(getApplicationContext(), "请充值1000元", 1).show();
+		}
+	});
+	
+	title_img.setOnClickListener(new OnClickListener() {
+		
+	
+
+		@Override
+		public void onClick(View v) {
+
+			listView = new ListView(EndCheckCodeActivity.this);
+			//listView.setBackgroundResource(R.drawable.gradient_box_other3); //����listView ����
+			listView.setDivider(null);	
+			listView.setVerticalScrollBarEnabled(false); // �ر�
+			Dadapter=new MyListAdapter();
+			
+			listView.setAdapter(Dadapter);
+			popWin=new PopupWindow(EndCheckCodeActivity.this);
+			popWin.setWidth(title_img.getWidth()*2);
+			popWin.setHeight(300);
+			popWin.setContentView(listView);
+			popWin.setOutsideTouchable(true);
+			popWin.showAsDropDown(title_img,0,0);
+		
+			
+		}
+	});
+   }
+   
+   public class MyListAdapter extends BaseAdapter{
+
+		@Override
+		public int getCount() {
+			Log.i("datalist", datalist.size()+"");
+			return datalist.size();
+			
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			ViewHolder holder;
+			if(convertView==null){
+				convertView=View.inflate(getApplicationContext(), R.layout.popwin, null);
+				holder=new ViewHolder();
+				holder.list_item=(TextView) convertView.findViewById(R.id.list_item);
+			    convertView.setTag(holder);
+			}else{
+				holder=(ViewHolder) convertView.getTag();
+			}
+			
+			holder.list_item.setText(datalist.get(position));
+			convertView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(position==0){
+						popWin.dismiss();
+						Toast.makeText(getApplicationContext(), datalist.get(position), 1).show();
+					    Intent logo2=new Intent(EndCheckCodeActivity.this,Alipay.class);
+					    startActivity(logo2);
+					}
+					if(position==1){
+						popWin.dismiss();
+						Toast.makeText(getApplicationContext(), datalist.get(position), 1).show();
+					}
+					
+				}
+			});
+			return convertView;
+		}
+   	
+   }
+   
+   public class ViewHolder{
+   	TextView list_item;
+   }
+}

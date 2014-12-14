@@ -1,0 +1,13 @@
+#Android generated
+bin/
+gen/
+
+#Eclipse
+.project
+.classpath
+.settings
+
+# Maven
+target
+release.properties
+pom.xml.*
